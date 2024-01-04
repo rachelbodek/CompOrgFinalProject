@@ -144,18 +144,7 @@
 //     return binStr;
 
 // }
-//Decode: “א” → xD7 x90 → “\u05D0”
-//Encode: “\u05D0” → xD7 x90 → “א”
-// int my_utf8_decode(unsigned char *input, unsigned char *output){
-//     int j =0;
-//     int len = 0
-//     while(input[j] != '\0'){
-//         len++;
-//         j++;
-//     }
-//     char *binStr = (char*)malloc(len* 4);
-    
-// }
+
 
 char *hex_to_binary(char *number){
     int j =0;
@@ -168,7 +157,6 @@ char *hex_to_binary(char *number){
     int i =0;
     int pos = 0;
     while(number[i] != '\0'){
-    printf("Processing character: %x\n", (unsigned char)number[i]);
     char digOne = (number[i] & 0xF0) >> 4;
     char digTwo = number[i] & 0x0F;
     char cur;
@@ -179,7 +167,6 @@ char *hex_to_binary(char *number){
         else{
             cur = digTwo;
         }
-        printf("Processing character: %x\n", (unsigned char)cur);
 
         switch((unsigned char)cur){
             case 0:
@@ -316,6 +303,164 @@ char *hex_to_binary(char *number){
     binStr[pos] = '\0';
     return binStr;
 }
+
+char *binary_to_hex(char *number){
+    int j =0;
+    int len = 0;
+    while(number[j] != '\0'){
+        len++;
+        j++;
+    }
+    char *strans = (char*)malloc(len / 4 + 1);
+    int i = 0;
+    int pos = 0;
+    while (number[i] != '\0'){
+        if (number[i]== '0' && number[i+1] == '0' && number[i+2] == '0' && number[i+3] == '0'){
+            strans[pos] = '0';
+            pos ++;
+            i += 4;
+        }
+        else if (number[i]== '0' && number[i+1] == '0' && number[i+2] == '0' && number[i+3] == '1'){
+            strans[pos] = '1';
+            pos++; 
+            i += 4;
+        }
+        else if (number[i]== '0' && number[i+1] == '0' && number[i+2] == '1' && number[i+3] == '0'){
+            strans[pos] = '2';
+            pos++; 
+            i += 4;
+        }
+        else if (number[i]== '0' && number[i+1] == '0' && number[i+2] == '1' && number[i+3] == '1'){
+            strans[pos] = '3';
+            pos++; 
+            i += 4;
+        }
+        else if (number[i]== '0' && number[i+1] == '1' && number[i+2] == '0' && number[i+3] == '0'){
+            strans[pos] = '4';
+            pos++; 
+            i += 4;
+        }
+        else if (number[i]== '0' && number[i+1] == '1' && number[i+2] == '0' && number[i+3] == '1'){
+            strans[pos] = '5';
+            pos++; 
+            i += 4;
+        }
+        else if (number[i]== '0' && number[i+1] == '1' && number[i+2] == '1' && number[i+3] == '0'){
+            strans[pos] = '6';
+            pos++; 
+            i += 4;
+        }
+        else if (number[i]== '0' && number[i+1] == '1' && number[i+2] == '1' && number[i+3] == '1'){
+            strans[pos] = '7';
+            pos++; 
+            i += 4;
+        }
+        else if (number[i]== '1' && number[i+1] == '0' && number[i+2] == '0' && number[i+3] == '0'){
+            strans[pos] = '8';
+            pos++; 
+            i += 4;
+        }
+        else if (number[i]== '1' && number[i+1] == '0' && number[i+2] == '0' && number[i+3] == '1'){
+            strans[pos] = '9';
+            pos++; 
+            i += 4;
+        }
+        else if (number[i]== '1' && number[i+1] == '0' && number[i+2] == '1' && number[i+3] == '0'){
+            strans[pos] = 'A';
+            pos++; 
+            i += 4;
+        }
+        else if (number[i]== '1' && number[i+1] == '0' && number[i+2] == '1' && number[i+3] == '1'){
+            strans[pos] = 'B';
+            pos++; 
+            i += 4;
+        }
+        else if (number[i]== '1' && number[i+1] == '1' && number[i+2] == '0' && number[i+3] == '0'){
+            strans[pos] = 'C';
+            pos++; 
+            i += 4;
+        }
+        else if (number[i]== '1' && number[i+1] == '1' && number[i+2] == '0' && number[i+3] == '1'){
+            strans[pos] = 'D';
+            pos++; 
+            i += 4;
+        }
+        else if (number[i]== '1' && number[i+1] == '1' && number[i+2] == '1' && number[i+3] == '0'){
+            strans[pos] = 'E';
+            pos++; 
+            i += 4;
+        }
+        else {
+            strans[pos] = 'F';
+            pos++; 
+            i += 4;
+        }
+    }
+    return strans;
+    }
+
+
+//Decode: “א” → xD7 x90 → “\u05D0”
+//Encode: “\u05D0” → xD7 x90 → “א”
+int my_utf8_decode( char *input,  char *output){
+    char *bin = hex_to_binary(input);
+    int j =0;
+    int len = 0;
+    while(input[j] != '\0'){
+        len++;
+        j++;
+    }
+    int digOne = (input[0] & 0xF0) >> 4;
+    int digTwo = input[0] & 0x0F;
+
+        output[0] = '\\';
+        output[1] = 'u';
+
+    if (len == 1){
+        int digOne = (input[0] & 0xF0) >> 4;
+        int digTwo = input[0] & 0x0F;
+        if (digOne >= 0 && digOne <= 9){
+            digOne = digOne + '0';
+        }
+        else{
+            digOne = digOne - 'A' + 10;
+        }
+        if (digTwo >= 0 && digTwo <= 9){
+            digTwo = digTwo + '0';
+        }
+        else if (digTwo >= 10 && digTwo <= 15){
+            digTwo = digTwo - 10 + 'A';
+        }
+        output[2] = '0';
+        output[3] = '0';
+        output[4] = digOne; 
+        output[5] = digTwo;
+        output[6] = '\0';
+    }
+    //2 byte string
+    if (len == 2){
+        for (int w = 0; w<2; w++){
+            int digOne = (input[0] & 0xF0) >> 4;
+            int digTwo = input[0] & 0x0F;   
+            output[2] = 0;  
+            char *fourbin = (char*)malloc(5);
+            for(int t = 16; t>0; t-- ){
+                if (!(t== 0 || t==1 ||t==8 || t==9)){
+                    fourbin[0] = bin[t];
+                    fourbin[1] = bin[t-1];
+                    fourbin[2] = bin[t-2];
+                    fourbin[3] = bin[t-3];
+                    output[3] = *binary_to_hex(fourbin);
+                }
+            }
+          }
+    }
+    return 1;
+    
+}
+
+
+
 int my_utf8_check(char *string){
     int i = 0;
     while ((unsigned char)string[i] != '\0'){
@@ -874,52 +1019,20 @@ void my_test_hebrewpluralizer(){
 
 
 int main(){
-    // int result = my_utf8_check("0xC0");
-    // char invalidUtf8[] = { 0xC0, 0xDA, '\0' };
-    // int zeroresult = my_utf8_check("\xB2\xA3");
-    // printf("%d\n", zeroresult);
-    // int oneresult =  my_utf8_check("\xC2\x80");
-    // printf("%d\n", oneresult);
-    // char my_string[] = "אריה";
-    // int a = my_utf8_strlen(my_string);
-    // printf("%d\n", a);
-    // char my_string2[] = "Привет";
-    // int b = my_utf8_strlen(my_string2);
-    // printf("%d\n", b);
-    // char *in = "\\u0024";
-    // char out[17];
-    // const char* y= my_utf8_encode(in, out);
-    // printf("encode is%s\n", y);
-    // char *string2 = "שלום";
-    // char *string1 = "סלום";
-    // int at = my_utf8_strcmp(string1,string2);
- 
-
-    // char *indexStr =  "אריה";
-    // char *ansIndex = my_utf8_charat(indexStr, 3);
-    // printf("%s\n", ansIndex);
-
-    // char *reverseStr = my_utf8_strreverse(indexStr);
-    // printf("%s\n", reverseStr);
-
-    // char *plural = "תפוח";
-    // char *pluralans = my_utf8_hebrewpluralizer(plural);
-    // printf("%s\n", pluralans);
-
-    // char *plural2 = "יפה";
-    // char *pluralans2 = my_utf8_hebrewpluralizer(plural2);
-    //printf("%s\n", pluralans2);
     my_test_check();
     my_test_strlen();
     my_test_charat();
     my_test_stringcmp();
     my_test_strreverse();
     my_test_hebrewpluralizer();
-    unsigned char output[100];
 
-    char *in = (char*)"\xE0\x88\x82";
-    //my_utf8_decode(in, output); 
-    printf("%s\n", output);
+    char out[100];
+    char *in = (char*)"\xD7\x90";
+    my_utf8_decode(in, out); 
+    printf("output %s\n", out);
     char *a = hex_to_binary(in);
-    printf("%s\n", a);
+    printf("hex to bin%s\n", a);
+    char* binary = "000100101111";
+    char* ans = binary_to_hex(binary);
+    printf("bin to hex%s", ans);
 }
