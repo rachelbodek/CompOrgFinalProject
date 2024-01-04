@@ -169,9 +169,20 @@ char *hex_to_binary(char *number){
     int pos = 0;
     while(number[i] != '\0'){
     printf("Processing character: %x\n", (unsigned char)number[i]);
+    char digOne = (number[i] & 0xF0) >> 4;
+    char digTwo = number[i] & 0x0F;
+    char cur;
+    for (int r =0; r<2; r++){
+        if (r ==0){
+            cur = digOne;
+        }
+        else{
+            cur = digTwo;
+        }
+        printf("Processing character: %x\n", (unsigned char)cur);
 
-        switch((unsigned char)number[i]){
-            case '0':
+        switch((unsigned char)cur){
+            case 0:
                 binStr[pos] = '0';
                 binStr[pos + 1] = '0';
                 binStr[pos + 2] = '0';
@@ -179,7 +190,7 @@ char *hex_to_binary(char *number){
                 pos += 4;
                 break;
             
-            case '1':
+            case 1:
                 binStr[pos] = '0';
                 binStr[pos + 1] = '0';
                 binStr[pos + 2] = '0';
@@ -187,7 +198,7 @@ char *hex_to_binary(char *number){
                 pos += 4;
                 break;
             
-            case '2':
+            case 2:
                 binStr[pos] = '0';
                 binStr[pos + 1] = '0';
                 binStr[pos + 2] = '1';
@@ -195,7 +206,7 @@ char *hex_to_binary(char *number){
                 pos += 4;
                 break;
             
-             case '3':
+             case 3:
                 binStr[pos] = '0';
                 binStr[pos + 1] = '0';
                 binStr[pos + 2] = '1';
@@ -203,7 +214,7 @@ char *hex_to_binary(char *number){
                 pos += 4;
                 break;
             
-            case '4':
+            case 4:
                 binStr[pos] = '0';
                 binStr[pos + 1] = '1';
                 binStr[pos + 2] = '0';
@@ -211,7 +222,7 @@ char *hex_to_binary(char *number){
                 pos += 4;
                 break;
             
-            case '5':
+            case 5:
                 binStr[pos] = '0';
                 binStr[pos + 1] = '1';
                 binStr[pos + 2] = '0';
@@ -219,7 +230,7 @@ char *hex_to_binary(char *number){
                 pos += 4;
                 break;
             
-             case '6':
+             case 6:
                 binStr[pos] = '0';
                 binStr[pos + 1] = '1';
                 binStr[pos + 2] = '1';
@@ -227,7 +238,7 @@ char *hex_to_binary(char *number){
                 pos += 4;
                 break;
             
-            case '7':
+            case 7:
                 binStr[pos] = '0';
                 binStr[pos + 1] = '1';
                 binStr[pos + 2] = '1';
@@ -235,7 +246,7 @@ char *hex_to_binary(char *number){
                 pos += 4;
                 break;
             
-            case '8':
+            case 8:
                 binStr[pos] = '1';
                 binStr[pos + 1] = '0';
                 binStr[pos + 2] = '0';
@@ -243,7 +254,7 @@ char *hex_to_binary(char *number){
                 pos += 4;
                 break;
             
-            case '9':
+            case 9:
                 binStr[pos] = '1';
                 binStr[pos + 1] = '0';
                 binStr[pos + 2] = '0';
@@ -251,7 +262,7 @@ char *hex_to_binary(char *number){
                 pos += 4;
                 break;
             
-            case 'A':
+            case 10:
                 binStr[pos] = '1';
                 binStr[pos + 1] = '0';
                 binStr[pos + 2] = '1';
@@ -259,7 +270,7 @@ char *hex_to_binary(char *number){
                 pos += 4; 
                 break;
             
-             case 'B':
+             case 11:
                 binStr[pos] = '1';
                 binStr[pos + 1] = '0';
                 binStr[pos + 2] = '1';
@@ -267,7 +278,7 @@ char *hex_to_binary(char *number){
                 pos += 4;
                 break;
             
-            case 'C':
+            case 12:
                 binStr[pos] = '1';
                 binStr[pos + 1] = '1';
                 binStr[pos + 2] = '0';
@@ -275,21 +286,21 @@ char *hex_to_binary(char *number){
                 pos += 4;
                 break;
             
-            case 'D':
+            case 13:
                 binStr[pos] = '1';
                 binStr[pos + 1] = '1';
                 binStr[pos + 2] = '0';
                 binStr[pos + 3] = '1';
                 pos += 4;
                 break;
-            case 'E':
+            case 14:
                 binStr[pos] = '1';
                 binStr[pos + 1] = '1';
                 binStr[pos + 2] = '1';
                 binStr[pos + 3] = '0';
                 pos += 4;
                 break;
-            case 'f':
+            case 15:
                 binStr[pos] = '1';
                 binStr[pos + 1] = '1';
                 binStr[pos + 2] = '1';
@@ -299,7 +310,8 @@ char *hex_to_binary(char *number){
             default:
                 break;
         }
-        i++;
+    }
+    i++;
     }
     binStr[pos] = '\0';
     return binStr;
@@ -905,7 +917,7 @@ int main(){
     my_test_hebrewpluralizer();
     unsigned char output[100];
 
-    char *in = (char*)"\xD7\x90";
+    char *in = (char*)"\xE0\x88\x82";
     //my_utf8_decode(in, output); 
     printf("%s\n", output);
     char *a = hex_to_binary(in);
