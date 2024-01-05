@@ -1,154 +1,11 @@
 #include <stdio.h>  
 #include <stdlib.h>
 
-// char *hextobin(char *number){
-//     int j =0;
-//     int len = 0;
-//     while(number[j] != '\0'){
-//         len++;
-//         j++;
-//     }
-//     char *binStr = (char*)malloc(len * 4 + 1);
-//     int i = 0;
-//     int pos = 0;
-//     while ((unsigned char)number[i] != '\0'){
-//         char firstDig = ((unsigned char)number[i] >> 4);
-//         char secondDig = (unsigned char)number[i]& 0xF;
-//         printf("%x\n", firstDig);
-//         printf("%x\n", secondDig);
-//         i++;
-//         char cur;
-//         for(int k =0; k<len; k++){
-//             if (k == 0){
-//                 cur = (unsigned char)firstDig;
-//             }
-//             else{
-//                 cur = secondDig;
-//             }
-//             printf("cur is %x\n", cur);
-//             if (cur == 0){
-//                 binStr[pos] = '0';
-//                 binStr[pos + 1] = '0';
-//                 binStr[pos + 2] = '0';
-//                 binStr[pos + 3] = '0';
-//                 pos += 4;
-//             }
-//             else if (cur == 1){
-//                 binStr[pos] = '0';
-//                 binStr[pos + 1] = '0';
-//                 binStr[pos + 2] = '0';
-//                 binStr[pos + 3] = '1';
-//                 pos += 4;
-//             }
-//             else if (cur == 2){
-//                 binStr[pos] = '0';
-//                 binStr[pos + 1] = '0';
-//                 binStr[pos + 2] = '1';
-//                 binStr[pos + 3] = '0';
-//                 pos += 4;
-//             }
-//              else if (cur == 3){
-//                 binStr[pos] = '0';
-//                 binStr[pos + 1] = '0';
-//                 binStr[pos + 2] = '1';
-//                 binStr[pos + 3] = '1';
-//                 pos += 4;
-//             }
-//              else if (cur == 4){
-//                 binStr[pos] = '0';
-//                 binStr[pos + 1] = '1';
-//                 binStr[pos + 2] = '0';
-//                 binStr[pos + 3] = '0';
-//                 pos += 4;
-//             }
-//              else if (cur == 5){
-//                 binStr[pos] = '0';
-//                 binStr[pos + 1] = '1';
-//                 binStr[pos + 2] = '0';
-//                 binStr[pos + 3] = '1';
-//                 pos += 4;
-//             }
-//              else if (cur == 6){
-//                 binStr[pos] = '0';
-//                 binStr[pos + 1] = '1';
-//                 binStr[pos + 2] = '1';
-//                 binStr[pos + 3] = '0';
-//                 pos += 4;
-//             }
-//             else if (cur == 7){
-//                 binStr[pos] = '0';
-//                 binStr[pos + 1] = '1';
-//                 binStr[pos + 2] = '1';
-//                 binStr[pos + 3] = '1';
-//                 pos += 4;
-//             }
-//             else if (cur == 8){
-//                 binStr[pos] = '1';
-//                 binStr[pos + 1] = '0';
-//                 binStr[pos + 2] = '0';
-//                 binStr[pos + 3] = '0';
-//                 pos += 4;
-//             }
-//             else if (cur == 9){
-//                 binStr[pos] = '1';
-//                 binStr[pos + 1] = '0';
-//                 binStr[pos + 2] = '0';
-//                 binStr[pos + 3] = '1';
-//                 pos += 4;
-//             }
-//             else if (cur == 'A'){
-//                binStr[pos] = '1';
-//                 binStr[pos + 1] = '0';
-//                 binStr[pos + 2] = '1';
-//                 binStr[pos + 3] = '0';
-//                 pos += 4; 
-//             }
-//              else if (cur == 'B'){
-//                 binStr[pos] = '1';
-//                 binStr[pos + 1] = '0';
-//                 binStr[pos + 2] = '1';
-//                 binStr[pos + 3] = '1';
-//                 pos += 4;
-//             }
-//              else if (cur == 'C'){
-//                 binStr[pos] = '1';
-//                 binStr[pos + 1] = '1';
-//                 binStr[pos + 2] = '0';
-//                 binStr[pos + 3] = '0';
-//                 pos += 4;
-//             }
-//             else if (cur == 'D'){
-//                 binStr[pos] = '1';
-//                 binStr[pos + 1] = '1';
-//                 binStr[pos + 2] = '0';
-//                 binStr[pos + 3] = '1';
-//                 pos += 4;
-//             }
-//             else if (cur == 'E'){
-//                 binStr[pos] = '1';
-//                 binStr[pos + 1] = '1';
-//                 binStr[pos + 2] = '1';
-//                 binStr[pos + 3] = '0';
-//                 pos += 4;
-//             }
-//             else {
-//                 binStr[pos] = '1';
-//                 binStr[pos + 1] = '1';
-//                 binStr[pos + 2] = '1';
-//                 binStr[pos + 3] = '1';
-//                 pos += 4;
-//             }
-//         }
-//     }
-//     binStr[pos] = '\0';
-//     return binStr;
-
-// }
-
 
 char *hex_to_binary(char *number){
     int j =0;
     int len = 0;
+    //find the len of the number
     while(number[j] != '\0'){
         len++;
         j++;
@@ -156,7 +13,9 @@ char *hex_to_binary(char *number){
     char *binStr = (char*)malloc(len * 4 + 1);
     int i =0;
     int pos = 0;
+    //loop through the numbers
     while(number[i] != '\0'){
+    //look at number one and two 
     char digOne = (number[i] & 0xF0) >> 4;
     char digTwo = number[i] & 0x0F;
     char cur;
@@ -167,7 +26,7 @@ char *hex_to_binary(char *number){
         else{
             cur = digTwo;
         }
-
+        //see which letter it should be 
         switch((unsigned char)cur){
             case 0:
                 binStr[pos] = '0';
@@ -307,6 +166,7 @@ char *hex_to_binary(char *number){
 char *binary_to_hex(char *number){
     int j =0;
     int len = 0;
+    //find the len of number
     while(number[j] != '\0'){
         len++;
         j++;
@@ -314,6 +174,7 @@ char *binary_to_hex(char *number){
     char *strans = (char*)malloc(len / 4 + 1);
     int i = 0;
     int pos = 0;
+    //look at 4 positions at a time and see what letter it should be
     while (number[i] != '\0'){
         if (number[i]== '0' && number[i+1] == '0' && number[i+2] == '0' && number[i+3] == '0'){
             strans[pos] = '0';
@@ -406,6 +267,7 @@ int my_utf8_decode( char *input,  char *output){
     char *bin = hex_to_binary(input);
     int j =0;
     int len = 0;
+    //find the len
     while(input[j] != '\0'){
         len++;
         j++;
@@ -413,10 +275,12 @@ int my_utf8_decode( char *input,  char *output){
     int digOne = (input[0] & 0xF0) >> 4;
     int digTwo = input[0] & 0x0F;
 
-        output[0] = '\\';
-        output[1] = 'u';
+    output[0] = '\\';
+    output[1] = 'u';
 
+    //if its an ascii char
     if (len == 1){
+        //convert to binary 
         int digOne = (input[0] & 0xF0) >> 4;
         int digTwo = input[0] & 0x0F;
         if (digOne >= 0 && digOne <= 9){
@@ -431,29 +295,73 @@ int my_utf8_decode( char *input,  char *output){
         else if (digTwo >= 10 && digTwo <= 15){
             digTwo = digTwo - 10 + 'A';
         }
+        //put it into output
         output[2] = '0';
         output[3] = '0';
         output[4] = digOne; 
         output[5] = digTwo;
         output[6] = '\0';
     }
+    printf("bin %s", bin);
     //2 byte string
-    if (len == 2){
-        for (int w = 0; w<2; w++){
-            int digOne = (input[0] & 0xF0) >> 4;
-            int digTwo = input[0] & 0x0F;   
+    if (len == 2){ 
             output[2] = 0;  
-            char *fourbin = (char*)malloc(5);
-            for(int t = 16; t>0; t-- ){
-                if (!(t== 0 || t==1 ||t==8 || t==9)){
-                    fourbin[0] = bin[t];
-                    fourbin[1] = bin[t-1];
-                    fourbin[2] = bin[t-2];
-                    fourbin[3] = bin[t-3];
-                    output[3] = *binary_to_hex(fourbin);
+            int pos = 0;
+            // for(int t = 16; t>0; t--){ 
+            //     if (!(t == 0 || t==1 ||t==8 || t==9)){
+            //         fourbin[0] = bin[t-3];
+            //         fourbin[1] = bin[t-2];
+            //         fourbin[2] = bin[t-1];
+            //         fourbin[3] = bin[t];
+            //         fourbin[4] = '\0';
+            //         char a = *binary_to_hex(fourbin);
+            //         output[pos + 2] = a;
+            //         pos ++;
+            //         t -= 3;
+            // }
+    
+            // }
+            int curlen = len;
+            output[2] = 0;
+            //there are 3 differnet numbers that need to be converted
+            for (int y =0; y<3; y++){
+                // for round one look at pos 12,13,14,15
+                if (y == 0){
+                    char *fourbin = (char*)malloc(5);
+                    fourbin[0] = bin[12];
+                    fourbin[1] = bin[13];
+                    fourbin[2] = bin[14];
+                    fourbin[3] = bin[15];
+                    fourbin[4] = '\0';
+                    char a = *binary_to_hex(fourbin);
+                    output[pos + 4] = a;
+                }
+                //for round 2 look at pos 10,11,7,6
+                else if (y == 1){
+                    char *bin1 = (char*)malloc(5);
+                    bin1[0] = bin[6];
+                    bin1[1] = bin[7];
+                    bin1[2] = bin[10];
+                    bin1[3] = bin[11];
+                    bin[14] = '\0';
+                    char a = *binary_to_hex(bin1);
+                    output[pos + 3] = a;
+                }
+                //for round 3 look at pos 3.4
+                else{
+                    char *bin2 = (char*)malloc(5);
+                    bin2[0] = bin[3];
+                    bin2[1] = bin[4];
+                    bin2[2] = bin[0];
+                    bin2[3] = bin[0];
+                    bin2[4] = '\0';
+                    char a = *binary_to_hex(bin2);
+                    output[pos + 2] = a;
                 }
             }
-          }
+            
+            output[5] = 0;
+            output[6] = '\0';
     }
     return 1;
     
@@ -463,7 +371,9 @@ int my_utf8_decode( char *input,  char *output){
 
 int my_utf8_check(char *string){
     int i = 0;
+    //loop through 
     while ((unsigned char)string[i] != '\0'){
+        //if in ascii range then its good
         if ((unsigned char)string[i] <= 0x7F){
         }
         // if 2 bytes and the second byte isnt in the range then return -1
@@ -513,20 +423,21 @@ int my_utf8_strlen(char *string){
     }
     else{
         while ((unsigned char)string[i] != '\0'){
+        //if one byte the len is one
         if ((unsigned char)string[i] <= 0x7F){
             totalLen++;
         }
-        // if 2 bytes and the second byte isnt in the range then return -1
+        // if 2 bytes then incremenet total len and take into account that the i also needs to be +1
         else if ((unsigned char)string[i] >= 0xC0 && (unsigned char)string[i] <= 0xDF){
             totalLen ++;
             i++;
         }
-        //if 3 bytes and 2nd isnt in range or third return -1
+        //if 3 bytes then incrememnet the totallen and take into account the i needs to be +2
         else if((unsigned char)string[i] >= 0xE0 && (unsigned char)string[i] <= 0xEF){
             totalLen++;
             i+=2;
         }
-        //if 4 bytes and 2nd isnt in range or third or fourth return -1
+        //if 4 bytes then incrememnet the totallen and take into account the i needs to be +3
         else if((unsigned char)string[i] >= 0xF0 && (unsigned char)string[i] <= 0xF7){
             totalLen++;
             i+=3;
@@ -540,7 +451,9 @@ int my_utf8_strlen(char *string){
 char *my_utf8_charat(char *string, int index){
     int i = 0;
     int strlen = 0;
+    // as long as were not an the index
     while (strlen != index){
+        //copy the strlen function
         if ((unsigned char)string[i] <= 0x7F){
             strlen++;
         }
@@ -561,14 +474,13 @@ char *my_utf8_charat(char *string, int index){
         }
         i++;
     }
-
+    // look at how many bytes the letter is and reserve space and then put it in that resultStr
     if ((unsigned char)string[i] <= 0x7F){
         char *resultStr = (char*)malloc(2);
         resultStr[0] = string[i];
         resultStr[1] = '\0';
         return resultStr;
     }
-    // if 2 bytes and the second byte isnt in the range then return -1
     else if ((unsigned char)string[i] >= 0xC0 && (unsigned char)string[i] <= 0xDF){
         char *resultStr = (char*)malloc(3);
         resultStr[0] = string[i];
@@ -576,7 +488,6 @@ char *my_utf8_charat(char *string, int index){
         resultStr[2] = '\0';
         return resultStr;
     }
-    //if 3 bytes and 2nd isnt in range or third return -1
     else if((unsigned char)string[i] >= 0xE0 && (unsigned char)string[i] <= 0xEF){
         char *resultStr = (char*)malloc(4);
         resultStr[0] = string[i];
@@ -585,7 +496,6 @@ char *my_utf8_charat(char *string, int index){
         resultStr[3] = '\0';
         return resultStr;
     }
-    //if 4 bytes and 2nd isnt in range or third or fourth return -1
     else if((unsigned char)string[i] >= 0xF0 && (unsigned char)string[i] <= 0xF7){
         char *resultStr = (char*)malloc(5);
         resultStr[0] = string[i];
@@ -654,6 +564,9 @@ char *my_utf8_strreverse(char *string){
             i+=3;
         }
         i++;
+    }
+    if (strlen == 0){
+        return NULL;
     }
 
     //allocate the memory needed for the reverse str 
@@ -827,6 +740,12 @@ void my_test_strlen(){
     int d = my_utf8_strlen(my_string3);
     if (d != 8){
         printf("error 4 \n");
+        conditionsFailed++;
+    }
+    char my_string4[] = "";
+    int e = my_utf8_strlen(my_string4);
+    if (e != 0){
+        printf("error 5 \n");
         conditionsFailed++;
     }
     if(conditionsFailed == 0){
@@ -1027,7 +946,7 @@ int main(){
     my_test_hebrewpluralizer();
 
     char out[100];
-    char *in = (char*)"\xD7\x90";
+    char *in = (char*)"\xD0\x98";
     my_utf8_decode(in, out); 
     printf("output %s\n", out);
     char *a = hex_to_binary(in);
